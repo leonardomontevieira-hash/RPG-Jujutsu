@@ -1,0 +1,6 @@
+{
+  "name": "Grimório Jujutsu Kaisen",
+  "description": "Um catálogo tático e interativo sobre o mundo de Jujutsu Kaisen. Explore a lore, os Três Grandes Clãs, técnicas como Expansão de Domínio, Graus de Maldições e Objetos Amaldiçoados.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
