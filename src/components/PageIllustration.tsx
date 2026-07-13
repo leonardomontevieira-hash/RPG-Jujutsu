@@ -469,6 +469,100 @@ export const PageIllustration: React.FC<PageIllustrationProps> = ({ type }) => {
         </div>
       );
 
+    case 'cifras_anatomy':
+      return (
+        <div className="relative flex items-center justify-center h-48 w-full bg-rose-950/20 border border-rose-900/10 rounded-md p-4 my-2 overflow-hidden">
+          <svg viewBox="0 0 200 200" className="w-40 h-40 text-rose-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+            {/* Theoretical background coordinates / math grid of Cifras */}
+            <circle cx="100" cy="100" r="80" strokeDasharray="2 6" className="opacity-15 text-rose-300" />
+            <line x1="100" y1="10" x2="100" y2="190" strokeDasharray="3 3" className="opacity-20 text-rose-400" />
+            <line x1="10" y1="100" x2="190" y2="100" strokeDasharray="3 3" className="opacity-20 text-rose-400" />
+            
+            {/* The Dual Spinal Column (split on the sides of the thorax) */}
+            <path d="M 85,30 Q 80,100 85,170" strokeWidth="2.5" className="text-rose-700 opacity-80" />
+            <path d="M 115,30 Q 120,100 115,170" strokeWidth="2.5" className="text-rose-700 opacity-80" />
+            
+            {/* Vertebrae details along the columns */}
+            <path d="M 81,40 L 89,40 M 81,60 L 89,60 M 80,80 L 88,80 M 80,100 L 88,100 M 81,120 L 89,120 M 81,140 L 89,140 M 82,160 L 90,160" strokeWidth="1.5" className="text-rose-600 opacity-90" />
+            <path d="M 111,40 L 119,40 M 111,60 L 119,60 M 112,80 L 120,80 M 112,100 L 120,100 M 111,120 L 119,120 M 111,140 L 119,140 M 110,160 L 118,160" strokeWidth="1.5" className="text-rose-600 opacity-90" />
+
+            {/* Empty abdominal center (no rib cage, no chest organs) */}
+            <circle cx="100" cy="100" r="30" strokeDasharray="5 5" className="text-rose-900 opacity-40" />
+            
+            {/* Theoretical 'Cifras' markings / Math formulas overlayed */}
+            <path d="M 60,60 L 70,55 M 140,60 L 130,55 M 60,140 L 70,145 M 140,140 L 130,145" className="text-rose-400 opacity-50" strokeWidth="1" />
+            
+            {/* Mathematical labels / numbers */}
+            <text x="135" y="45" fill="currentColor" className="text-rose-400/60 font-mono text-[7px]">α-912</text>
+            <text x="50" y="45" fill="currentColor" className="text-rose-400/60 font-mono text-[7px]">β-004</text>
+            <text x="135" y="160" fill="currentColor" className="text-rose-400/60 font-mono text-[7px]">E=mc²</text>
+            <text x="45" y="160" fill="currentColor" className="text-rose-400/60 font-mono text-[7px]">Ψ-FLOW</text>
+
+            {/* External Cursed Energy Absorption (Ambient energy photosynthesis) */}
+            <path d="M 40,100 A 60,60 0 0,1 160,100" strokeWidth="1" className="text-rose-400 opacity-30 animate-pulse" />
+            <path d="M 40,100 A 60,60 0 0,0 160,100" strokeWidth="1" strokeDasharray="2 2" className="text-rose-400 opacity-30" />
+            
+            {/* Cursed Energy Inflow Arrows pointing to central void */}
+            <path d="M 50,100 L 75,100 M 70,96 L 75,100 L 70,104" strokeWidth="1.2" className="text-rose-400/70" />
+            <path d="M 150,100 L 125,100 M 130,96 L 125,100 L 130,104" strokeWidth="1.2" className="text-rose-400/70" />
+            
+            {/* Central energy convergence (Pure cursed energy crystal) */}
+            <polygon points="100,85 110,100 100,115 90,100" fill="currentColor" className="text-rose-500 opacity-30" />
+            <polygon points="100,92 105,100 100,108 95,100" fill="currentColor" className="text-rose-400" />
+          </svg>
+          <div className="absolute bottom-2 text-[10px] font-mono uppercase tracking-wider text-rose-500/70">Anomalia de Cifras - Fotossíntese de EA</div>
+        </div>
+      );
+
+    case 'setsudan_ha':
+      return (
+        <div className="relative flex items-center justify-center h-48 w-full bg-red-950/20 border border-red-900/10 rounded-md p-4 my-2 overflow-hidden">
+          <svg viewBox="0 0 200 200" className="w-40 h-40 text-red-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+            {/* Background rising slash shockwaves (Santuário/Cleave effects) */}
+            <path d="M 30,170 Q 100,100 170,30" className="text-red-700/40" strokeWidth="1.5" />
+            <path d="M 40,180 Q 100,110 160,40" className="text-red-700/20" strokeWidth="1" strokeDasharray="3 3" />
+            
+            {/* Spiritual shape-shifting echoes (The other weapon shapes behind) */}
+            {/* Echo Spear */}
+            <path d="M 60,170 L 110,50" className="text-red-500/15" strokeWidth="1" strokeDasharray="4 4" />
+            <polygon points="110,50 115,40 107,47" className="text-red-500/10" fill="currentColor" />
+            
+            {/* Echo Halberd / Axe */}
+            <path d="M 130,150 L 80,40" className="text-red-500/15" strokeWidth="1" strokeDasharray="4 4" />
+            <path d="M 85,55 Q 70,45 80,35" className="text-red-500/10" fill="currentColor" />
+
+            {/* Main Katana: Setsudan Ha (Lâmina da Separação) */}
+            {/* Blade */}
+            <path d="M 40,160 Q 105,95 160,40" strokeWidth="2" className="text-red-400" />
+            {/* Hamon / Blade edge highlight */}
+            <path d="M 41,161 Q 105,97 158,42" strokeWidth="0.8" className="text-white opacity-80" />
+            
+            {/* Guard (Tsuba) */}
+            <circle cx="50" cy="150" r="8" fill="currentColor" className="text-amber-600" />
+            <circle cx="50" cy="150" r="5" fill="currentColor" className="text-amber-500" />
+            
+            {/* Handle (Tsuka) */}
+            <line x1="50" y1="150" x2="30" y2="170" strokeWidth="3" className="text-stone-800" strokeLinecap="round" />
+            <line x1="50" y1="150" x2="30" y2="170" strokeWidth="2" strokeDasharray="3 2" className="text-red-700" strokeLinecap="round" />
+
+            {/* Soul link core (Positive/Negative core at Tsuba) */}
+            <circle cx="50" cy="150" r="2.5" fill="currentColor" className="text-white animate-ping" />
+
+            {/* Floating cherry blossoms / sword sparkles */}
+            <circle cx="85" cy="115" r="2.5" fill="currentColor" className="text-red-500/80" />
+            <circle cx="120" cy="80" r="1.5" fill="currentColor" className="text-red-400" />
+            <circle cx="140" cy="65" r="2" fill="currentColor" className="text-red-300" />
+            <circle cx="165" cy="35" r="1.5" fill="currentColor" className="text-red-200" />
+            <circle cx="55" cy="125" r="2" fill="currentColor" className="text-red-600/60" />
+            
+            {/* Elegant slash arcs */}
+            <path d="M 140,70 A 30,30 0 0,1 170,100" strokeWidth="1" className="text-red-400 opacity-60" />
+            <path d="M 30,100 A 30,30 0 0,1 60,130" strokeWidth="1" className="text-red-400 opacity-60" />
+          </svg>
+          <div className="absolute bottom-2 text-[10px] font-mono uppercase tracking-wider text-red-500/70">Setsudan Ha - Conexão de Alma</div>
+        </div>
+      );
+
     default:
       return (
         <div className="h-48 w-full bg-stone-100/30 border border-stone-900/10 rounded-md p-4 my-2 flex items-center justify-center">

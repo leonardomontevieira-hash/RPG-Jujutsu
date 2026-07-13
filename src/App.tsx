@@ -313,26 +313,12 @@ export default function App() {
 
               <div className="mt-4 text-center">
                 <Compass className="w-10 h-10 text-purple-400 mx-auto animate-pulse" />
-                <h3 className="font-serif font-bold text-2xl text-purple-100 mt-2">Mesa de Estudos Jujutsu</h3>
+                <h3 className="font-serif font-bold text-2xl text-purple-100 mt-2">Biblioteca de Estudos da Humanidade</h3>
                 <div className="h-[1.5px] w-24 bg-purple-900/40 mx-auto my-3" />
                 
                 <p className="font-serif text-sm leading-relaxed text-purple-200/90 italic text-justify px-2">
-                  "À sua frente jaz o acervo proibido da Sociedade de Jujutsu. Três volumes de lore e regras documentam as bases de nossa história e poder: as Crônicas do Mundo Jujutsu, o Livro Oficial de Regras e a Enciclopédia de Raças."
+                  "Aqui se encontra o resultado de décadas de estudos e criação de livros de Tengen e Kenjaku para documentar a evolução e vastidão da humanidade e do universo, segue agora o resultado do esforço milenar dos feiticeiros sobreviventes da terra Primordial"
                 </p>
-
-                <p className="font-serif text-sm leading-relaxed text-purple-200/90 italic text-justify px-2 mt-3">
-                  "Sinta-se livre para examinar a mesa. Você pode utilizar o Diário de Investigação para documentar suas próprias observações táticas."
-                </p>
-              </div>
-
-              {/* List of features */}
-              <div className="mt-5 grid grid-cols-2 gap-2 text-[11px] font-mono text-purple-300/90 bg-purple-950/40 p-3 rounded border border-purple-900/30">
-                <div>📙 3 Tomos de Lore & Regras</div>
-                <div>🌀 Expansão de Domínio</div>
-                <div>🧬 Enciclopédia de Raças</div>
-                <div>⚜️ Clãs e Linhagens de Elite</div>
-                <div>✒️ Diário Local do Feiticeiro</div>
-                <div>🔍 Busca Global em Tempo Real</div>
               </div>
 
               <div className="mt-6 flex justify-center">
