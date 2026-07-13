@@ -436,6 +436,39 @@ export const PageIllustration: React.FC<PageIllustrationProps> = ({ type }) => {
         </div>
       );
 
+    case 'netriun_equilibrium':
+      return (
+        <div className="relative flex items-center justify-center h-48 w-full bg-emerald-100/10 border border-amber-900/10 rounded-md p-4 my-2 overflow-hidden">
+          <svg viewBox="0 0 200 200" className="w-40 h-40 text-emerald-600" stroke="currentColor" fill="none" strokeWidth="1.5">
+            {/* Background spiritual flows */}
+            <path d="M 20,100 C 50,40 150,40 180,100 C 150,160 50,160 20,100 Z" strokeDasharray="4 4" className="opacity-30 text-emerald-800" />
+            
+            {/* Divine Radiance Halo (Rever) */}
+            <circle cx="100" cy="100" r="48" strokeDasharray="6 3" className="text-amber-500 opacity-60" strokeWidth="1" />
+            <circle cx="100" cy="100" r="40" className="text-amber-500 opacity-40" strokeWidth="1" />
+            
+            {/* The individual human soul (Central orb) */}
+            <circle cx="100" cy="100" r="22" fill="currentColor" className="opacity-10 text-emerald-900" />
+            <circle cx="100" cy="100" r="18" strokeWidth="1.2" />
+            
+            {/* Glowing positive energy core (Amber) */}
+            <circle cx="100" cy="100" r="8" fill="currentColor" className="text-amber-500 opacity-60" />
+            <circle cx="100" cy="100" r="3" fill="currentColor" className="text-amber-600" />
+            
+            {/* Swirling energy bands (Negative/Positive) */}
+            <path d="M 70,100 Q 100,50 130,100" strokeWidth="1.5" className="text-emerald-700" />
+            <path d="M 70,100 Q 100,150 130,100" strokeWidth="1.5" strokeDasharray="4 2" className="text-amber-500" />
+            
+            {/* Sparkles of Positive Energy */}
+            <circle cx="70" cy="70" r="2" fill="currentColor" className="text-amber-500" />
+            <circle cx="130" cy="70" r="2.5" fill="currentColor" className="text-amber-500" />
+            <circle cx="70" cy="130" r="2.5" fill="currentColor" className="text-amber-500" />
+            <circle cx="130" cy="130" r="2" fill="currentColor" className="text-amber-500" />
+          </svg>
+          <div className="absolute bottom-2 text-[10px] font-mono uppercase tracking-wider text-amber-600/70">Netriun - Equilíbrio Espiritual</div>
+        </div>
+      );
+
     default:
       return (
         <div className="h-48 w-full bg-stone-100/30 border border-stone-900/10 rounded-md p-4 my-2 flex items-center justify-center">
