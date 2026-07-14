@@ -655,7 +655,7 @@ export const WORLD_BOOKS: Book[] = [
         title: 'Capítulo III — Golpes Universais',
         content: [
           'Kokusen',
-          'Antes do ataque, o usuário declara que tentará realizar um Kokusen. Caso obtenha 6 no dado de eficácia, deverá escolher um número. Se a condição for satisfied, o golpe causa dano equivalente ao dobro da soma entre Ataque e Técnica, sendo aplicado diretamente ao HP.',
+          'Antes do ataque, o usuário declara que tentará realizar um Kokusen. Caso obtenha 6 no dado de eficácia, deverá escolher um número. Se a condição for feita, o golpe causa dano equivalente ao dobro da soma entre Ataque e Técnica, sendo aplicado diretamente ao HP. O gasto é igual o dobro do dano causado.',
           'Punho Divergente',
           'Uma técnica de combate corporal baseada no Ataque Técnico (TA). O dano corresponde a 2/4 do TA. Em caso de acerto completo: 1/4 do dano é aplicado à Defesa. 1/4 do dano é aplicado diretamente ao HP. Em caso de dano parcial: Apenas 1/4 do dano é aplicado à Defesa.'
         ],
