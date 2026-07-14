@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Book as BookType, Chapter } from '../types';
 import { BookOpen, Users, Sparkles, Flame, Compass, ChevronLeft, ChevronRight, X, Bookmark, CornerDownRight } from 'lucide-react';
-import { PageIllustration } from './PageIllustration';
 
 interface BookProps {
   book: BookType;
