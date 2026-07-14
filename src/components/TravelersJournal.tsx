@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { JournalEntry } from '../types';
 import { BookMarked, Trash2, Plus, Calendar, Save, FileText, Sparkles, X } from 'lucide-react';
+import { db } from '../firebase';
+import { collection, doc, setDoc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
+
+const getVisitorId = () => {
+  let id = localStorage.getItem('jujutsu_visitor_id');
+  if (!id) {
+    id = 'visitor-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
+    localStorage.setItem('jujutsu_visitor_id', id);
+  }
+  return id;
+};
+
+const visitorId = getVisitorId();
 
 export const TravelersJournal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,49 +23,100 @@ export const TravelersJournal: React.FC = () => {
   const [text, setText] = useState('');
   const [activeEntryId, setActiveEntryId] = useState<string | null>(null);
 
-  // Load entries from localStorage
+  // Load entries from Firestore / localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('jujutsu_journal');
-    if (saved) {
+    const fetchEntries = async () => {
       try {
-        setEntries(JSON.parse(saved));
-      } catch (e) {
-        console.error('Falha ao carregar diário', e);
-      }
-    } else {
-      // Seed initial entries
-      const initial: JournalEntry[] = [
-        {
-          id: 'seed-1',
-          date: '11/07/2026',
-          title: 'Iniciação na Escola de Jujutsu',
-          text: 'Hoje encontrei os registros secretos de energia amaldiçoada. Os grimórios detalham as Crônicas do Mundo Jujutsu, os três grandes clãs e técnicas avançadas como a Expansão de Domínio. Também há um mapa de Tóquio indicando focos de energia negativa em Shibuya e Shinjuku. Devo manter este diário sob sigilo sob pena de execução!'
+        const q = query(
+          collection(db, 'journal_entries'),
+          where('visitorId', '==', visitorId)
+        );
+        const querySnapshot = await getDocs(q);
+        const fetched: any[] = [];
+        querySnapshot.forEach((doc) => {
+          fetched.push({ id: doc.id, ...doc.data() });
+        });
+
+        // Sort by createdAt descending client-side (no index required!)
+        fetched.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+        const formatted: JournalEntry[] = fetched.map(item => ({
+          id: item.id,
+          title: item.title || '',
+          text: item.text || '',
+          date: item.date || ''
+        }));
+
+        if (formatted.length > 0) {
+          setEntries(formatted);
+          localStorage.setItem('jujutsu_journal', JSON.stringify(formatted));
+        } else {
+          loadFromLocalStorage();
         }
-      ];
-      setEntries(initial);
-      localStorage.setItem('jujutsu_journal', JSON.stringify(initial));
-    }
+      } catch (e) {
+        console.error('Falha ao sincronizar diário com o Firestore', e);
+        loadFromLocalStorage();
+      }
+    };
+
+    const loadFromLocalStorage = () => {
+      const saved = localStorage.getItem('jujutsu_journal');
+      if (saved) {
+        try {
+          setEntries(JSON.parse(saved));
+        } catch (e) {
+          console.error('Falha ao carregar diário local', e);
+        }
+      } else {
+        // Seed initial entries
+        const initial: JournalEntry[] = [
+          {
+            id: 'seed-1',
+            date: '11/07/2026',
+            title: 'Iniciação na Escola de Jujutsu',
+            text: 'Hoje encontrei os registros secretos de energia amaldiçoada. Os grimórios detalham as Crônicas do Mundo Jujutsu, os três grandes clãs e técnicas avançadas como a Expansão de Domínio. Também há um mapa de Tóquio indicando focos de energia negativa em Shibuya e Shinjuku. Devo manter este diário sob sigilo sob pena de execução!'
+          }
+        ];
+        setEntries(initial);
+        localStorage.setItem('jujutsu_journal', JSON.stringify(initial));
+      }
+    };
+
+    fetchEntries();
   }, []);
 
   // Save entry
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !text.trim()) return;
 
-    let updated: JournalEntry[];
+    const entryId = activeEntryId || 'journal-' + Date.now();
+    const dateStr = new Date().toLocaleDateString('pt-BR');
+    const createdAtVal = Date.now();
 
+    const newOrUpdatedEntry = {
+      id: entryId,
+      title,
+      text,
+      date: dateStr,
+      visitorId,
+      createdAt: createdAtVal
+    };
+
+    // Update local state immediately for fast response
+    let updated: JournalEntry[];
     if (activeEntryId && entries.some(entry => entry.id === activeEntryId)) {
       // Edit existing
       updated = entries.map(entry =>
         entry.id === activeEntryId
-          ? { ...entry, title, text, date: new Date().toLocaleDateString('pt-BR') }
+          ? { ...entry, title, text, date: dateStr }
           : entry
       );
     } else {
       // Create new
       const newEntry: JournalEntry = {
-        id: 'journal-' + Date.now(),
-        date: new Date().toLocaleDateString('pt-BR'),
+        id: entryId,
+        date: dateStr,
         title,
         text
       };
@@ -61,15 +125,22 @@ export const TravelersJournal: React.FC = () => {
 
     setEntries(updated);
     localStorage.setItem('jujutsu_journal', JSON.stringify(updated));
+
+    // Save to Firestore in background
+    try {
+      await setDoc(doc(db, 'journal_entries', entryId), newOrUpdatedEntry);
+    } catch (err) {
+      console.error('Erro ao salvar no Firestore:', err);
+    }
     
-    // Clear inputs or keep edited active
+    // Clear inputs
     setTitle('');
     setText('');
     setActiveEntryId(null);
   };
 
   // Delete entry
-  const handleDelete = (id: string, e: React.MouseEvent) => {
+  const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     const updated = entries.filter(entry => entry.id !== id);
     setEntries(updated);
@@ -78,6 +149,13 @@ export const TravelersJournal: React.FC = () => {
       setTitle('');
       setText('');
       setActiveEntryId(null);
+    }
+
+    // Delete from Firestore in background
+    try {
+      await deleteDoc(doc(db, 'journal_entries', id));
+    } catch (err) {
+      console.error('Erro ao deletar do Firestore:', err);
     }
   };
 
